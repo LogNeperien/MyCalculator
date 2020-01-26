@@ -9,8 +9,8 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
 
-    private int number1;
-    private int number2;
+    private int number1 = -1;
+    private int number2 = -1;
     private String calculFinal;
     private double resultatFinal;
 
@@ -100,9 +100,40 @@ public class MainActivity extends AppCompatActivity {
                 calcul.setText("9");
                 buffer = 9;
                 break;
+            case R.id.button0:
+                calcul.setText("0");
+                buffer = 0;
+                break;
+            case R.id.buttonMoins:
+                calcul.setText("-");
+                buffer = -1;
+                break;
+            case R.id.buttonPlus:
+                calcul.setText("+");
+                buffer = -1;
+                break;
+            case R.id.buttonDivision:
+                calcul.setText("/");
+                buffer = -1;
+                break;
+            case R.id.buttonMultipliocation:
+                calcul.setText("*");
+                buffer = -1;
+                break;
 
         }
         result.setText(String.valueOf(buffer));
+        if(getNumber1() == -1)
+        {
+            setNumber1(buffer);
+            result.setText(String.valueOf(buffer));
+        }
+        else if(getNumber2() == -1)
+            setNumber2(buffer);
+
+        buffer = -1;
+
+
     }
 
 }
