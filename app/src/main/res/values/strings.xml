@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MyCalculator</string>
+    <string name="calculInit">calcul</string>
+    <string name="resultInit">resultat</string>
 </resources>
