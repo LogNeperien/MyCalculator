@@ -57,11 +57,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void myClickHandler(View view) {
-        TextView calcul;
-        calcul = (TextView) findViewById(R.id.calcul);
-
-        TextView result;
-        result = (TextView) findViewById(R.id.result);
+        TextView calcul = (TextView) findViewById(R.id.calcul);
+        TextView result = (TextView) findViewById(R.id.result);
 
         switch (view.getId()) {
             case R.id.button1:
@@ -102,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.button0:
                 calcul.setText("0");
-                buffer = 0;
+                buffer = -1;
                 break;
             case R.id.buttonMoins:
                 calcul.setText("-");
@@ -116,13 +113,15 @@ public class MainActivity extends AppCompatActivity {
                 calcul.setText("/");
                 buffer = -1;
                 break;
-            case R.id.buttonMultipliocation:
+            case R.id.buttonMultiplication:
                 calcul.setText("*");
                 buffer = -1;
                 break;
 
         }
-        result.setText(String.valueOf(buffer));
+
+        //result.setText(String.valueOf(buffer));
+
         if(getNumber1() == -1)
         {
             setNumber1(buffer);
