@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
     private int number2 = -1;
     private String calculFinal;
     private double resultatFinal;
+    private boolean isNumber1Finished = false;
+    private boolean isNumber2Finished = false;
 
     private int buffer;
 
@@ -33,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
         return resultatFinal;
     }
 
+    public boolean getIsNumber1Finished () {return isNumber1Finished; }
+
+    public boolean getIsNumber2Finished () {return isNumber2Finished; }
+
     //setter
     public void setNumber1(int nb) {
         number1 = nb;
@@ -49,6 +56,10 @@ public class MainActivity extends AppCompatActivity {
     public  void setResultatFinal(double nb) {
         resultatFinal = nb;
     }
+
+    public void setIsNumber1Finished (boolean res) {isNumber1Finished = res;}
+
+    public void setIsNumber2Finished (boolean res) {isNumber2Finished = res;}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +118,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.buttonPlus:
                 calcul.setText("+");
+                /*Toast.makeText(getApplicationContext(), "+",
+                        Toast.LENGTH_LONG).show();*/
                 buffer = -1;
                 break;
             case R.id.buttonDivision:
@@ -117,10 +130,32 @@ public class MainActivity extends AppCompatActivity {
                 calcul.setText("*");
                 buffer = -1;
                 break;
+            case R.id.buttonEgal:
+                calcul.setText("=");
+                buffer = -1;
+                break;
 
         }
 
         //result.setText(String.valueOf(buffer));
+
+        if(buffer != -1) //si on ne change pas de nombre
+        {
+            if(getNumber1() == -1)
+            {
+                //si on ajoute un chiffre pour la premiere fois au nombre
+                //on met ce chiffre directement dans le nombre
+                setNumber1(buffer);
+            }
+            else
+            {
+                //si on a deja un ou des chiffres dans notre nombre et qu'on veut en ajouter un
+                //par exemple on veut 6503 et qu'on a deja taper 650
+                //alors on modifie le nombre en le multipliant par 10 (ici 6500)
+                //et en ajoutant le nouveau bouton sur lequel on a taper (ici 3)
+                setNumber1(getNumber1()*10 + buffer);
+            }
+        }
 
         if(getNumber1() == -1)
         {
