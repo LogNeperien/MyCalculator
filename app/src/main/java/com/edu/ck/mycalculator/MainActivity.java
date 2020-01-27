@@ -5,14 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
 
     private int number1 = -1;
     private int number2 = -1;
-    private String calculFinal;
+    private String operation = "";
+    private String calculFinal = "";
     private double resultatFinal;
     private boolean isNumber1Finished = false;
     private boolean isNumber2Finished = false;
@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean getIsNumber2Finished () {return isNumber2Finished; }
 
+    public String getOperation () {return operation;}
+
     //setter
     public void setNumber1(int nb) {
         number1 = nb;
@@ -60,6 +62,10 @@ public class MainActivity extends AppCompatActivity {
     public void setIsNumber1Finished (boolean res) {isNumber1Finished = res;}
 
     public void setIsNumber2Finished (boolean res) {isNumber2Finished = res;}
+
+    public void setOperation (String newOperation) {operation = newOperation;}
+
+    public void addCalculFinal (String str) { calculFinal += str; }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.button0:
                 calcul.setText("0");
-                buffer = -1;
+                buffer = 0;
                 break;
             case R.id.buttonMoins:
                 calcul.setText("-");
@@ -120,44 +126,104 @@ public class MainActivity extends AppCompatActivity {
                 calcul.setText("+");
                 /*Toast.makeText(getApplicationContext(), "+",
                         Toast.LENGTH_LONG).show();*/
-                buffer = -1;
+                buffer = -2;
                 break;
             case R.id.buttonDivision:
                 calcul.setText("/");
-                buffer = -1;
+                buffer = -3;
                 break;
             case R.id.buttonMultiplication:
                 calcul.setText("*");
-                buffer = -1;
+                buffer = -4;
                 break;
             case R.id.buttonEgal:
                 calcul.setText("=");
-                buffer = -1;
+                buffer = -5;
                 break;
 
         }
 
         //result.setText(String.valueOf(buffer));
 
-        if(buffer != -1) //si on ne change pas de nombre
+        if(buffer > -1) //si on ne change pas de nombre
         {
-            if(getNumber1() == -1)
-            {
-                //si on ajoute un chiffre pour la premiere fois au nombre
-                //on met ce chiffre directement dans le nombre
-                setNumber1(buffer);
+            if(getIsNumber1Finished() == false) { //si on a pas encore fini de prendre le premier nombre
+                if (getNumber1() == -1) {
+                    //si on ajoute un chiffre pour la premiere fois au nombre
+                    //on met ce chiffre directement dans le nombre
+                    setNumber1(buffer);
+                    setCalculFinal(String.valueOf(buffer));
+                } else {
+                    //si on a deja un ou des chiffres dans notre nombre et qu'on veut en ajouter un
+                    //par exemple on veut 6503 et qu'on a deja taper 650
+                    //alors on modifie le nombre en le multipliant par 10 (ici 6500)
+                    //et en ajoutant le nouveau bouton sur lequel on a taper (ici 3)
+                    setNumber1(getNumber1() * 10 + buffer);
+                    addCalculFinal(String.valueOf(buffer));
+                }
             }
-            else
-            {
-                //si on a deja un ou des chiffres dans notre nombre et qu'on veut en ajouter un
-                //par exemple on veut 6503 et qu'on a deja taper 650
-                //alors on modifie le nombre en le multipliant par 10 (ici 6500)
-                //et en ajoutant le nouveau bouton sur lequel on a taper (ici 3)
-                setNumber1(getNumber1()*10 + buffer);
+            else{ //si on a fini de prendre le premier nombre
+                addCalculFinal(String.valueOf(buffer));
+                if (getNumber2() == -1) {
+                    setNumber2(buffer);
+                } else {
+                    setNumber2(getNumber2() * 10 + buffer);
+                }
             }
         }
+        else if(buffer > -5 && getOperation()== "" && getNumber1()!= -1) // si on effectue une opération
+        {
+            setIsNumber1Finished(true);
+            addCalculFinal(" ");
+            switch(buffer){
+                case -1:
+                    setOperation("-");
+                    break;
+                case -2:
+                    setOperation("+");
+                    break;
+                case -3:
+                    setOperation("/");
+                    break;
+                case -4:
+                    setOperation("*");
+                    break;
+            }
+            addCalculFinal(getOperation());
+            addCalculFinal(" ");
+        }
+        else if(buffer == -5 && getIsNumber1Finished() == true && getOperation() != "" && getNumber2() != -1 )
+        { // si on fait egal et qu'on peut faire l'opération
+            switch (getOperation()){
+                case "-":
+                    setResultatFinal(getNumber1() - getNumber2());
+                    break;
+                case "+":
+                    setResultatFinal(getNumber1() + getNumber2());
+                    break;
+                case "*":
+                    setResultatFinal(getNumber1() * getNumber2());
+                    break;
+                case "/":
+                    setResultatFinal(((double)getNumber1()) / ((double)getNumber2()));
+                    break;
+            }
+            result.setText(String.valueOf(getResultatFinal()));
 
-        if(getNumber1() == -1)
+            //réinitialisation
+            setNumber1(-1);
+            setNumber2(-1);
+            setOperation("");
+            setIsNumber1Finished(false);
+
+        }
+        else
+        {
+            result.setText("ERROR");
+        }
+
+        calcul.setText(getCalculFinal());
+        /*if(getNumber1() == -1)
         {
             setNumber1(buffer);
             result.setText(String.valueOf(buffer));
@@ -165,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
         else if(getNumber2() == -1)
             setNumber2(buffer);
 
-        buffer = -1;
+        buffer = -1;*/
 
 
     }
