@@ -96,6 +96,9 @@ public class MainActivity extends AppCompatActivity {
 
         LinearLayout layout = findViewById(R.id.allButton);
         layout.addView(buttonEgal);
+
+        //Methode Handler
+        buttonEgal.setOnClickListener(handlerVersion());
     }
 
 
@@ -134,63 +137,48 @@ public class MainActivity extends AppCompatActivity {
     {
         switch (view.getId()) {
             case R.id.button1:
-                //calcul.setText("1");
                 buffer = 1;
                 break;
             case R.id.button2:
-                //calcul.setText("2");
                 buffer = 2;
                 break;
             case R.id.button3:
-                //calcul.setText("3");
                 buffer = 3;
                 break;
             case R.id.button4:
-                //calcul.setText("4");
                 buffer = 4;
                 break;
             case R.id.button5:
-                //calcul.setText("5");
                 buffer = 5;
                 break;
             case R.id.button6:
-                //calcul.setText("6");
                 buffer = 6;
                 break;
             case R.id.button7:
-                //calcul.setText("7");
                 buffer = 7;
                 break;
             case R.id.button8:
-                //calcul.setText("8");
                 buffer = 8;
                 break;
             case R.id.button9:
-                //calcul.setText("9");
                 buffer = 9;
                 break;
             case R.id.button0:
-                //calcul.setText("0");
                 buffer = 0;
                 break;
             case R.id.buttonMoins:
-                //calcul.setText("-");
                 buffer = -1;
                 break;
             case R.id.buttonPlus:
-                //calcul.setText("+");
                 buffer = -2;
                 break;
             case R.id.buttonDivision:
-                //calcul.setText("/");
                 buffer = -3;
                 break;
             case R.id.buttonMultiplication:
-                //calcul.setText("*");
                 buffer = -4;
                 break;
             case R.id.buttonEgal:
-                //calcul.setText("=");
                 buffer = -5;
                 break;
 
@@ -299,7 +287,7 @@ public class MainActivity extends AppCompatActivity {
 
         */
 
-        if(buffer == -5 && getIsNumber1Finished() == true && getOperation() != "" && getNumber2() != -1 )
+        if(getIsNumber1Finished() && getOperation() != "" && getNumber2() != -1 )
         { // si on fait egal et qu'on peut faire l'opération
             switch (getOperation()){
                 case "-":
