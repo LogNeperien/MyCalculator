@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.LinearLayout;
+import android.os.Handler;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isNumber2Finished = false;
 
     private int buffer;
+    private Handler handler;
 
     //getter
     public String getCalculFinal() {
@@ -71,7 +75,51 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        //ajout du bouton 2
+        Button buttonEgal = new Button(this);
+        buttonEgal.setId(R.id.buttonEgal);
+        buttonEgal.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                1.0f)
+        );
+        buttonEgal.setText("=");
+
+        //handler method
+        handler = new Handler();
+
+        LinearLayout layout = findViewById(R.id.allButton);
+        layout.addView(buttonEgal);
     }
+
+    /*
+    public void startProgress(View view) {
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i <= 10; i++) {
+                    final int value = i;
+                        // simulate a slow network !
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            progress.setProgress(value);
+                        }
+                    }
+                };
+            }
+        });
+        new Thread(runnable).start();
+    }
+    }*/
+
 
     public void myClickHandler(View view) {
         TextView calcul = (TextView) findViewById(R.id.calcul);
