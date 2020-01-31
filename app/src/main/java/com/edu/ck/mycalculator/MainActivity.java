@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.LinearLayout;
 import android.os.Handler;
+import android.annotation.SuppressLint;
+import android.os.AsyncTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -124,8 +126,39 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
+    //Version Async
+    View.OnClickListener myEqualHandler(final Button buttonEqual)  {
+        return new View.OnClickListener() {
+            public void onClick(View v) {
+                AsyncEqual task = new AsyncEqual();
+                task.execute();
+            }
+        };
+    }
+
+    private class AsyncEqual extends AsyncTask<Void, Void, String>{
+        @SuppressLint("WrongThread")
+        protected String doInBackground(Void... vals) {
+            String finalText;
+
+            calcul();
+            calcul.setText(getCalculFinal());
+
+            return getResultatFinal();
+        }
+        protected void onProgressUpdate(Integer... progress) {
+            //...
+        }
+        protected void onPostExecute(String result) {
+
+            //Affiche le resultat
+            GaultierJousselin.setText(result);
+        }
+    }
 
 
+
+    //Thread basique
     public void myClickHandler(View view) {
 
         whatButtonDidIPressed(view);
