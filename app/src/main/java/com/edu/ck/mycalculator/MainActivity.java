@@ -99,87 +99,156 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    //Version Handler
+    View.OnClickListener handlerVersion() {
+
+        return new View.OnClickListener() {
+            public void onClick(View view) {
+                Runnable runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                calcul();
+                                calcul.setText(getCalculFinal());
+                            }
+                        });
+                    }
+                };
+                new Thread(runnable).start();
+            }
+        };
+    }
+
 
 
     public void myClickHandler(View view) {
 
         whatButtonDidIPressed(view);
-        calcul();
-        calcul.setText(getCalculFinal());
+        //calcul();
+        //calcul.setText(getCalculFinal());
     }
 
     private void whatButtonDidIPressed(View view)
     {
         switch (view.getId()) {
             case R.id.button1:
-                calcul.setText("1");
+                //calcul.setText("1");
                 buffer = 1;
                 break;
             case R.id.button2:
-                calcul.setText("2");
+                //calcul.setText("2");
                 buffer = 2;
                 break;
             case R.id.button3:
-                calcul.setText("3");
+                //calcul.setText("3");
                 buffer = 3;
                 break;
             case R.id.button4:
-                calcul.setText("4");
+                //calcul.setText("4");
                 buffer = 4;
                 break;
             case R.id.button5:
-                calcul.setText("5");
+                //calcul.setText("5");
                 buffer = 5;
                 break;
             case R.id.button6:
-                calcul.setText("6");
+                //calcul.setText("6");
                 buffer = 6;
                 break;
             case R.id.button7:
-                calcul.setText("7");
+                //calcul.setText("7");
                 buffer = 7;
                 break;
             case R.id.button8:
-                calcul.setText("8");
+                //calcul.setText("8");
                 buffer = 8;
                 break;
             case R.id.button9:
-                calcul.setText("9");
+                //calcul.setText("9");
                 buffer = 9;
                 break;
             case R.id.button0:
-                calcul.setText("0");
+                //calcul.setText("0");
                 buffer = 0;
                 break;
             case R.id.buttonMoins:
-                calcul.setText("-");
+                //calcul.setText("-");
                 buffer = -1;
                 break;
             case R.id.buttonPlus:
-                calcul.setText("+");
-                /*Toast.makeText(getApplicationContext(), "+",
-                        Toast.LENGTH_LONG).show();*/
+                //calcul.setText("+");
                 buffer = -2;
                 break;
             case R.id.buttonDivision:
-                calcul.setText("/");
+                //calcul.setText("/");
                 buffer = -3;
                 break;
             case R.id.buttonMultiplication:
-                calcul.setText("*");
+                //calcul.setText("*");
                 buffer = -4;
                 break;
             case R.id.buttonEgal:
-                calcul.setText("=");
+                //calcul.setText("=");
                 buffer = -5;
                 break;
 
         }
 
+        if(buffer > -1) //si on ne change pas de nombre
+        {
+            if (getIsNumber1Finished() == false) { //si on a pas encore fini de prendre le premier nombre
+                if (getNumber1() == -1) {
+                    //si on ajoute un chiffre pour la premiere fois au nombre
+                    //on met ce chiffre directement dans le nombre
+                    setNumber1(buffer);
+                    setCalculFinal(String.valueOf(buffer));
+                } else {
+                    //si on a deja un ou des chiffres dans notre nombre et qu'on veut en ajouter un
+                    //par exemple on veut 6503 et qu'on a deja taper 650
+                    //alors on modifie le nombre en le multipliant par 10 (ici 6500)
+                    //et en ajoutant le nouveau bouton sur lequel on a taper (ici 3)
+                    setNumber1(getNumber1() * 10 + buffer);
+                    addCalculFinal(String.valueOf(buffer));
+                }
+            } else { //si on a fini de prendre le premier nombre
+                addCalculFinal(String.valueOf(buffer));
+                if (getNumber2() == -1) {
+                    setNumber2(buffer);
+                } else {
+                    setNumber2(getNumber2() * 10 + buffer);
+                }
+            }
+            }
+            else if(buffer > -5 && getOperation()== "" && getNumber1()!= -1) // si on effectue une opération
+            {
+                setIsNumber1Finished(true);
+                addCalculFinal(" ");
+                switch(buffer){
+                    case -1:
+                        setOperation("-");
+                        break;
+                    case -2:
+                        setOperation("+");
+                        break;
+                    case -3:
+                        setOperation("/");
+                        break;
+                    case -4:
+                        setOperation("*");
+                        break;
+                }
+                addCalculFinal(getOperation());
+                addCalculFinal(" ");
+            }
+        calcul.setText(getCalculFinal());
+
     }
 
     private void calcul()
     {
+        /*
         if(buffer > -1) //si on ne change pas de nombre
         {
             if(getIsNumber1Finished() == false) { //si on a pas encore fini de prendre le premier nombre
@@ -227,7 +296,10 @@ public class MainActivity extends AppCompatActivity {
             addCalculFinal(getOperation());
             addCalculFinal(" ");
         }
-        else if(buffer == -5 && getIsNumber1Finished() == true && getOperation() != "" && getNumber2() != -1 )
+
+        */
+
+        if(buffer == -5 && getIsNumber1Finished() == true && getOperation() != "" && getNumber2() != -1 )
         { // si on fait egal et qu'on peut faire l'opération
             switch (getOperation()){
                 case "-":
