@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
     private int buffer;
     private Handler handler;
+    private TextView calcul;
+    private TextView result;
 
     //getter
     public String getCalculFinal() {
@@ -76,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        calcul = (TextView) findViewById(R.id.calcul);
+        result = (TextView) findViewById(R.id.result);
 
         //ajout du bouton 2
         Button buttonEgal = new Button(this);
@@ -94,104 +98,12 @@ public class MainActivity extends AppCompatActivity {
         layout.addView(buttonEgal);
     }
 
-    /*
-    public void startProgress(View view) {
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                for (int i = 0; i <= 10; i++) {
-                    final int value = i;
-                        // simulate a slow network !
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            progress.setProgress(value);
-                        }
-                    }
-                };
-            }
-        });
-        new Thread(runnable).start();
-    }
-    }*/
+
 
 
     public void myClickHandler(View view) {
-        TextView calcul = (TextView) findViewById(R.id.calcul);
-        TextView result = (TextView) findViewById(R.id.result);
 
-        switch (view.getId()) {
-            case R.id.button1:
-                calcul.setText("1");
-                buffer = 1;
-                break;
-            case R.id.button2:
-                calcul.setText("2");
-                buffer = 2;
-                break;
-            case R.id.button3:
-                calcul.setText("3");
-                buffer = 3;
-                break;
-            case R.id.button4:
-                calcul.setText("4");
-                buffer = 4;
-                break;
-            case R.id.button5:
-                calcul.setText("5");
-                buffer = 5;
-                break;
-            case R.id.button6:
-                calcul.setText("6");
-                buffer = 6;
-                break;
-            case R.id.button7:
-                calcul.setText("7");
-                buffer = 7;
-                break;
-            case R.id.button8:
-                calcul.setText("8");
-                buffer = 8;
-                break;
-            case R.id.button9:
-                calcul.setText("9");
-                buffer = 9;
-                break;
-            case R.id.button0:
-                calcul.setText("0");
-                buffer = 0;
-                break;
-            case R.id.buttonMoins:
-                calcul.setText("-");
-                buffer = -1;
-                break;
-            case R.id.buttonPlus:
-                calcul.setText("+");
-                /*Toast.makeText(getApplicationContext(), "+",
-                        Toast.LENGTH_LONG).show();*/
-                buffer = -2;
-                break;
-            case R.id.buttonDivision:
-                calcul.setText("/");
-                buffer = -3;
-                break;
-            case R.id.buttonMultiplication:
-                calcul.setText("*");
-                buffer = -4;
-                break;
-            case R.id.buttonEgal:
-                calcul.setText("=");
-                buffer = -5;
-                break;
-
-        }
-
-        //result.setText(String.valueOf(buffer));
+        whatButtonDidIPressed(view);
 
         if(buffer > -1) //si on ne change pas de nombre
         {
@@ -271,16 +183,75 @@ public class MainActivity extends AppCompatActivity {
         }
 
         calcul.setText(getCalculFinal());
-        /*if(getNumber1() == -1)
-        {
-            setNumber1(buffer);
-            result.setText(String.valueOf(buffer));
+    }
+
+    private void whatButtonDidIPressed(View view)
+    {
+        switch (view.getId()) {
+            case R.id.button1:
+                calcul.setText("1");
+                buffer = 1;
+                break;
+            case R.id.button2:
+                calcul.setText("2");
+                buffer = 2;
+                break;
+            case R.id.button3:
+                calcul.setText("3");
+                buffer = 3;
+                break;
+            case R.id.button4:
+                calcul.setText("4");
+                buffer = 4;
+                break;
+            case R.id.button5:
+                calcul.setText("5");
+                buffer = 5;
+                break;
+            case R.id.button6:
+                calcul.setText("6");
+                buffer = 6;
+                break;
+            case R.id.button7:
+                calcul.setText("7");
+                buffer = 7;
+                break;
+            case R.id.button8:
+                calcul.setText("8");
+                buffer = 8;
+                break;
+            case R.id.button9:
+                calcul.setText("9");
+                buffer = 9;
+                break;
+            case R.id.button0:
+                calcul.setText("0");
+                buffer = 0;
+                break;
+            case R.id.buttonMoins:
+                calcul.setText("-");
+                buffer = -1;
+                break;
+            case R.id.buttonPlus:
+                calcul.setText("+");
+                /*Toast.makeText(getApplicationContext(), "+",
+                        Toast.LENGTH_LONG).show();*/
+                buffer = -2;
+                break;
+            case R.id.buttonDivision:
+                calcul.setText("/");
+                buffer = -3;
+                break;
+            case R.id.buttonMultiplication:
+                calcul.setText("*");
+                buffer = -4;
+                break;
+            case R.id.buttonEgal:
+                calcul.setText("=");
+                buffer = -5;
+                break;
+
         }
-        else if(getNumber2() == -1)
-            setNumber2(buffer);
-
-        buffer = -1;*/
-
 
     }
 
