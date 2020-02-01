@@ -100,7 +100,10 @@ public class MainActivity extends AppCompatActivity {
         layout.addView(buttonEgal);
 
         //Methode Handler
-        buttonEgal.setOnClickListener(handlerVersion());
+        //buttonEgal.setOnClickListener(handlerVersion());
+
+        //Methode AsyncTask
+        buttonEgal.setOnClickListener(asyncTaskVersion());
     }
 
 
@@ -127,9 +130,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Version Async
-    View.OnClickListener myEqualHandler(final Button buttonEqual)  {
-        return new View.OnClickListener() {
-            public void onClick(View v) {
+    View.OnClickListener asyncTaskVersion()
+    {
+        return new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
                 AsyncEqual task = new AsyncEqual();
                 task.execute();
             }
@@ -139,20 +145,15 @@ public class MainActivity extends AppCompatActivity {
     private class AsyncEqual extends AsyncTask<Void, Void, String>{
         @SuppressLint("WrongThread")
         protected String doInBackground(Void... vals) {
-            String finalText;
-
             calcul();
-            calcul.setText(getCalculFinal());
-
-            return getResultatFinal();
+            return getCalculFinal();
         }
         protected void onProgressUpdate(Integer... progress) {
             //...
         }
-        protected void onPostExecute(String result) {
-
+        protected void onPostExecute() {
             //Affiche le resultat
-            GaultierJousselin.setText(result);
+            calcul.setText(getCalculFinal());
         }
     }
 
