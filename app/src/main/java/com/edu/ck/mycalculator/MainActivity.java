@@ -104,10 +104,10 @@ public class MainActivity extends AppCompatActivity {
         layout.addView(buttonEgal);
 
         //Methode Handler
-        buttonEgal.setOnClickListener(handlerVersion());
+        //buttonEgal.setOnClickListener(handlerVersion());
 
         //Methode AsyncTask
-        //buttonEgal.setOnClickListener(asyncTaskVersion());
+        buttonEgal.setOnClickListener(asyncTaskVersion());
     }
 
 
@@ -146,15 +146,19 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
+
     private class AsyncEqual extends AsyncTask<Void, Void, String>{
         @SuppressLint("WrongThread")
         protected String doInBackground(Void... vals) {
 
 
+            // documentation : https://docs.oracle.com/javase/tutorial/networking/sockets/readingWriting.html
 
             try {
+
                 //creation Socket
-                Socket s = new Socket("192.168.81.1", 9876);
+                Socket s = new Socket("192.168.43.141", 9876);
+
                 //création des streams
                 DataInputStream dis = new DataInputStream(s.getInputStream());
                 DataOutputStream dos = new DataOutputStream(s.getOutputStream());
@@ -162,10 +166,11 @@ public class MainActivity extends AppCompatActivity {
                 //on envoie les données au serveur
                 dos.writeDouble((double)(getNumber1())); //on transforme le number 1 en double
                 dos.flush();
+                dos.writeChar(getOperation().charAt(0)); // on transforme la string opération en char
+                dos.flush();
                 dos.writeDouble((double)(getNumber2())); // on transforme le number 2 en double
                 dos.flush();
-                dos.writeDouble(getOperation().charAt(0)); // on transforme la string opération en char
-                dos.flush();
+
 
                 //on récupère la donnée
                 setResultatFinal(dis.readDouble());
@@ -186,17 +191,6 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            //envoie
-            /*
-            PrintWriter out = new PrintWriter(s.getOutputStream(), true);
-            out.println("hello");
-            out.flush();
-
-            //reception
-            BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
-            BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
-
-             */
             return String.valueOf(getResultatFinal());
         }
         protected void onProgressUpdate(Integer... progress) {
@@ -353,22 +347,5 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //fonction qui fait le lien avec le serveur
-    /*
-    private void connection()
-    {
-        String hostName = "coucou";
-        int portNumber = 0;
-
-        try (
-                Socket echoSocket = new Socket(hostName, portNumber);
-
-                PrintWriter out = new PrintWriter(echoSocket.getOutputStream(), true);
-                BufferedReader in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
-                BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in))
-        )
-    }
-
-     */
 
 }
