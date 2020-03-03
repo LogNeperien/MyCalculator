@@ -2,6 +2,7 @@ package com.edu.ck.mycalculator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -25,7 +26,9 @@ public class MainActivity extends AppCompatActivity {
     private int number2 = -1;
     private String operation = "";
     private String calculFinal = "";
+    private String oldCalcul = "pas encore de calcul";
     private double resultatFinal;
+    private double oldResultat = 0;
     private boolean isNumber1Finished = false;
     private boolean isNumber2Finished = false;
 
@@ -128,6 +131,10 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_historique:
                 System.out.println("historique");
+                Intent intent = new Intent(this, Historique.class);
+                intent.putExtra("calcul", oldCalcul);
+                intent.putExtra("resultat", String.valueOf(oldResultat));
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -196,6 +203,8 @@ public class MainActivity extends AppCompatActivity {
                 dos.flush();
 
 
+                oldResultat = getResultatFinal();
+                oldCalcul = getCalculFinal();
                 //on récupère la donnée
                 setResultatFinal(dis.readDouble());
 
@@ -223,6 +232,11 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String res) {
             //Affiche le resultat
             result.setText(res);
+            calcul.setText("");
+            setNumber1(-1);
+            setNumber2(-1);
+            setOperation("");
+            setIsNumber1Finished(false);
         }
     }
 

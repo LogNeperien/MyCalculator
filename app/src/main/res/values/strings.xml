@@ -3,4 +3,7 @@
     <string name="calculInit">calcul</string>
     <string name="resultInit">resultat</string>
     <string name="action_historique">Historique</string>
+    <string name="oldCalcul">Ancien calcul</string>
+    <string name="OldResultat">Ancien Résultat</string>
+    <string name="historique">Historique</string>
 </resources>
