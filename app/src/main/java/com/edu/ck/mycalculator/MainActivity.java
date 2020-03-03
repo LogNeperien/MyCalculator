@@ -3,6 +3,9 @@ package com.edu.ck.mycalculator;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -108,6 +111,27 @@ public class MainActivity extends AppCompatActivity {
 
         //Methode AsyncTask
         buttonEgal.setOnClickListener(asyncTaskVersion());
+    }
+
+    //menu
+    //documentation : https://developer.android.com/guide/topics/ui/menus#options-menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_historique:
+                System.out.println("historique");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 
