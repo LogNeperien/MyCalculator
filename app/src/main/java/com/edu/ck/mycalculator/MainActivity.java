@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
     public void addCalculFinal (String str) { calculFinal += str; }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) throws IOException {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -150,9 +150,11 @@ public class MainActivity extends AppCompatActivity {
         @SuppressLint("WrongThread")
         protected String doInBackground(Void... vals) {
 
-            Socket s = new Socket("localhost", 9876);
+
 
             try {
+                //creation Socket
+                Socket s = new Socket("192.168.81.1", 9876);
                 //création des streams
                 DataInputStream dis = new DataInputStream(s.getInputStream());
                 DataOutputStream dos = new DataOutputStream(s.getOutputStream());
@@ -175,7 +177,11 @@ public class MainActivity extends AppCompatActivity {
                 s.close();
 
 
-            } catch (Exception e) {
+            } catch (UnknownHostException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
