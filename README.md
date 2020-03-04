@@ -21,6 +21,6 @@ Modify your calculator in order to run the "equal" click handler in a sepreate t
 
 Use the calculator from the previous lab and modify it as follows :
 
-1- once "=" is clicked, the app gets connected to a server app on your machine (IP address 10.0.2.2 if using the emulator), sends the operation and receives the result for display (add the uses-permission for internet in the manifest - look it up !)
+1- once "=" is clicked, the app gets connected to a server app on your machine (IP address 10.0.2.2 if using the emulator), sends the operation and receives the result for display (add the uses-permission for internet in the manifest - look it up !) <bn>
 2- Use an options menu (menu created by default when the project is generated) to start a new activity which displays the last operationand its result. This activity should also provide space for entering a URL and a button to run a new activity which shows the given URL in a webview.
 
