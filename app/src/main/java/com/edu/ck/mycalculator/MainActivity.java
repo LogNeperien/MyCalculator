@@ -203,10 +203,11 @@ public class MainActivity extends AppCompatActivity {
                 dos.flush();
 
 
-                oldResultat = getResultatFinal();
-                oldCalcul = getCalculFinal();
+
                 //on récupère la donnée
                 setResultatFinal(dis.readDouble());
+                oldResultat = getResultatFinal();
+                oldCalcul = getCalculFinal();
 
                 //on ferme les streams
                 dis.close();

@@ -6,4 +6,8 @@
     <string name="oldCalcul">Ancien calcul</string>
     <string name="OldResultat">Ancien Résultat</string>
     <string name="historique">Historique</string>
+    <string name="URL">URL</string>
+    <string name="URLtoPut">website</string>
+    <string name="buttonWeb">Go to the web</string>
+    <string name="web">Web Activity</string>
 </resources>
