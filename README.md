@@ -4,11 +4,11 @@
 ##TP2 
 
 Create a calculator that contains a button for every digit, the operations (+, -, *, /) and "=" .
-Coding constraints :
-1- Follow the specific layout given below (operation is twice the size in width of the result button; "0" ans "/" have the same size)
-2- Only one method for handling all button clicks (investigate the tag attribute) 
-3- create the layout in XML using a LinearLayout
-4- Modify the layout by removing the button "=" from the XML file and adding it at runtime alongside handling its click event.
+Coding constraints : <bn>
+1- Follow the specific layout given below (operation is twice the size in width of the result button; "0" ans "/" have the same size) <bn>
+2- Only one method for handling all button clicks (investigate the tag attribute) <bn>
+3- create the layout in XML using a LinearLayout <bn>
+4- Modify the layout by removing the button "=" from the XML file and adding it at runtime alongside handling its click event. <bn>
 ![Calculatrice Image](/Desktop/ING4/Mobile/Calculatrice.jpg)
 
 ##TP3
